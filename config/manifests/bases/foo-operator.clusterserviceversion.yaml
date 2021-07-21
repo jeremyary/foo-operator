@@ -1,0 +1,47 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: foo-operator.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: Foo is the Schema for the foos API
+      displayName: Foo
+      kind: Foo
+      name: foos.testing.foo.com
+      version: v1alpha1
+  description: jary test
+  displayName: Foo Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - foo
+  links:
+  - name: Foo Operator
+    url: https://foo-operator.domain
+  maintainers:
+  - email: jary@redhat.com
+    name: jary
+  maturity: alpha
+  provider:
+    name: jary
+  version: 0.0.0
