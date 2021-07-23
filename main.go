@@ -78,6 +78,22 @@ func main() {
 		os.Exit(1)
 	}
 
+	// ----------------------------------------------------------------------------------------------------
+	// BEGIN PoC FOR DETECTING DEPLOYMENT AND CREATING A CLUSTER-SCOPED 'BAR' CR W/FINALIZER ON DEPLOYMENT
+	// ----------------------------------------------------------------------------------------------------
+	if err = (&controllers.SelfDeploymentReconciler{
+		Client: mgr.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("SelfDeployment"),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "SelfDeployment")
+		os.Exit(1)
+	}
+	// --- END BAR PoC ---
+
+	// -----------------------------------------------------------------------------------------------------
+	// BEGIN PoC FOR CREATING A CLUSTER-SCOPED 'FOO' CR OWNED BY THE OPERATOR'S CLUSTERROLE
+	// -----------------------------------------------------------------------------------------------------
 	fooReconciler := &controllers.FooReconciler{
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("Foo"),
@@ -88,11 +104,20 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Foo")
 		os.Exit(1)
 	}
+	if err = (&controllers.BarReconciler{
+		Client: mgr.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("Bar"),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Bar")
+		os.Exit(1)
+	}
 	//+kubebuilder:scaffold:builder
 
 	if err = fooReconciler.InitializeOperand(mgr); err != nil {
 		setupLog.Error(err, "unable to create operand", "controller", "Foo")
 	}
+	// --- END FOO PoC ---
 
 	if err := mgr.AddHealthzCheck("healthz", healthz.Ping); err != nil {
 		setupLog.Error(err, "unable to set up health check")

@@ -10,6 +10,11 @@ spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
+    - description: Bar is the Schema for the bars API
+      displayName: Bar
+      kind: Bar
+      name: bars.testing.foo.com
+      version: v1alpha1
     - description: Foo is the Schema for the foos API
       displayName: Foo
       kind: Foo

@@ -6,6 +6,16 @@ metadata:
       [
         {
           "apiVersion": "testing.foo.com/v1alpha1",
+          "kind": "Bar",
+          "metadata": {
+            "name": "bar-sample"
+          },
+          "spec": {
+            "foo": "bar"
+          }
+        },
+        {
+          "apiVersion": "testing.foo.com/v1alpha1",
           "kind": "Foo",
           "metadata": {
             "name": "foo-sample"
@@ -24,6 +34,11 @@ spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
+    - description: Bar is the Schema for the bars API
+      displayName: Bar
+      kind: Bar
+      name: bars.testing.foo.com
+      version: v1alpha1
     - description: Foo is the Schema for the foos API
       displayName: Foo
       kind: Foo
@@ -39,12 +54,49 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - update
+          - watch
+        - apiGroups:
           - rbac.authorization.k8s.io
           resources:
           - clusterroles
           verbs:
           - get
           - list
+        - apiGroups:
+          - testing.foo.com
+          resources:
+          - bars
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - testing.foo.com
+          resources:
+          - bars/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - testing.foo.com
+          resources:
+          - bars/status
+          verbs:
+          - get
+          - patch
+          - update
         - apiGroups:
           - testing.foo.com
           resources:

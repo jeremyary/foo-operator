@@ -7,12 +7,49 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
   - rbac.authorization.k8s.io
   resources:
   - clusterroles
   verbs:
   - get
   - list
+- apiGroups:
+  - testing.foo.com
+  resources:
+  - bars
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - testing.foo.com
+  resources:
+  - bars/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - testing.foo.com
+  resources:
+  - bars/status
+  verbs:
+  - get
+  - patch
+  - update
 - apiGroups:
   - testing.foo.com
   resources:

@@ -16,4 +16,13 @@ resources:
   kind: Foo
   path: github.com/jeremyary/foo-operator/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: foo.com
+  group: testing
+  kind: Bar
+  path: github.com/jeremyary/foo-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"

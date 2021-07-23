@@ -6,20 +6,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.4.1
   creationTimestamp: null
-  name: foos.testing.foo.com
+  name: bars.testing.foo.com
 spec:
   group: testing.foo.com
   names:
-    kind: Foo
-    listKind: FooList
-    plural: foos
-    singular: foo
+    kind: Bar
+    listKind: BarList
+    plural: bars
+    singular: bar
   scope: Cluster
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Foo is the Schema for the foos API
+        description: Bar is the Schema for the bars API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -34,15 +34,15 @@ spec:
           metadata:
             type: object
           spec:
-            description: FooSpec defines the desired state of Foo
+            description: BarSpec defines the desired state of Bar
             properties:
               foo:
-                description: Foo is an example field of Foo. Edit foo_types.go to
+                description: Foo is an example field of Bar. Edit bar_types.go to
                   remove/update
                 type: string
             type: object
           status:
-            description: FooStatus defines the observed state of Foo
+            description: BarStatus defines the observed state of Bar
             type: object
         type: object
     served: true
